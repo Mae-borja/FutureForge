@@ -1,0 +1,507 @@
+/* Skills Gap Report CSS and some */
+
+* { 
+  margin:0;
+  padding:0; 
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.skills {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  transition: transform 0.2s ease-in-out, margin-right 0.2s ease-in-out;
+  margin-right: 10vw;
+  margin-left: 1vw;
+  flex-grow: 1;
+}
+
+.skills-header {
+  border-bottom: 3px solid #7966C5;
+  margin: 0 50px;   
+}
+
+.skills-header-container {
+  display: flex;
+  align-items: flex-end;
+  width: 100%; 
+}
+
+.skills-header-container h1 {
+  font-size: 80px;
+  color: #DB1F90;
+}
+
+#skillcontainer {
+  display: none;
+}
+
+.insights {
+  text-align: center;
+  padding: 5px 20px;
+  background-color: #36AD5E;
+  border-radius: 50px;
+  margin-left: 10px;
+  margin-bottom: 18px;
+}
+
+.insights p {
+  color: white;
+  font-weight: bolder;
+}
+
+.another-container {
+  position: fixed;
+  top: 90px; /* Changed from 0 to 90 to match your style */
+  left: 0;
+  width: 100%;
+  background-color: white;
+  transition: transform 0.2s ease-in-out, margin-right 0.2s ease-in-out;
+  transform: translateX(0rem); /* Main content shifted */
+  margin-right: 10vw;
+  margin-left: 20px;
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between; /* Space between items */
+  padding: 20px; /* Add padding to the container */
+  top: 90px; 
+  z-index: 10;
+}
+
+.analyze-container,
+.insight-container {
+  display: flex;
+  align-items: center;
+  flex: 1; /* Allow containers to grow equally */
+  margin: 0 10px; /* Margin for spacing between containers */
+}
+
+.analyze-container h2,
+.insight-container h2 {
+  font-size: 30px;
+  font-weight: bolder;
+}
+
+.analyze-container h2 {
+  color: #3E3E3E;
+}
+
+.insight-container h2 {
+  color: #F29D38;
+}
+
+/* Ensure the images are the same size */
+.analyze-container img,
+.insight-container img {
+  height: 80px; /* Consistent image height */
+  margin-right: 10px; /* Space between image and text */
+}
+
+.skill-button {
+  text-align: center;
+  font-size: 20px;
+  margin-top: 10px;
+  padding: 5px 50px;
+  color: grey;
+  background-color: #D9D9D9;
+  border-radius: 50px;
+  z-index: 5;
+  position: absolute;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+.skills-container {
+  flex-grow: 1;
+  padding: 10px;
+  margin: 10px 30px;
+  height: 700px;
+  overflow-y: auto;
+}
+
+.manage-container {
+  overflow-y: auto;
+  flex-grow: 1;
+  margin: 30px;
+  background-color: #F29D38;
+  width: auto;
+  height: 700px;
+  box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+.manage-skills-container {
+  position: relative;
+  flex-grow: 1;
+  padding: 10px;
+  padding-bottom: 50vh;
+  margin: 30px;
+  min-height: 46rem;
+  height: 80vh;
+
+}
+
+.button-container {
+  display: flex; /* Use flexbox to align the button */
+  justify-content: flex-end; /* Align the button to the right */
+  position: absolute;
+  right: 0; /* Adjust the button's horizontal position */
+  top: 20px;
+}
+
+.overview-container {
+  display: flex;
+  margin-top: 250px;
+
+}
+
+.description-container {
+  flex: 1;
+  margin-right: 60px;
+  margin-left: 60px;
+}
+
+.description-container p {
+  text-align: justify;
+  letter-spacing: 1px;
+  line-height: 1.5;
+  margin: 20px 0;
+  color: #8A8A8A;
+}
+
+.triangle-button {
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 50px solid #8B9DFD; /* Green triangle color */
+  cursor: pointer;
+  position: relative;
+}
+
+.triangle-button:before {
+  content: "Click";
+  position: absolute;
+  top: -55px; /* Adjust the text position */
+  left: -18px; /* Adjust to center the text */
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.triangle-button:hover {
+  border-bottom-color: #45a049; /* Darker shade on hover */
+}
+
+.center-container {
+  display: flex;
+  justify-content: center; /* Horizontally center */
+  align-items: center;     /* Vertically center */
+
+  bottom: 0;
+}
+
+/* Main content wrapper */
+.main-content-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+  /* Main content styles */
+  .main-content.active {
+    flex-grow: 1; /* Allow the content area to take remaining space */
+    transition: transform 0.2s ease-in-out, margin-right 0.2s ease-in-out;
+    min-height: 100vh; /* Ensure it covers full height */
+    transform: translateX(2rem); /* Shift main content to the right */
+    margin: 0;
+    margin-right: 2vw;
+  
+  }
+  
+  .main-content {
+      transition: transform 0.2s ease-in-out, margin-right 0.2s ease-in-out;
+      transform: translateX(10rem); /* Main content shifted */
+      margin-right: 10vw;
+      margin-left: 1vw;
+    }
+
+
+/* Container to hold navbar and main content */
+.container {
+  display: flex; /* Use flexbox to align items */
+  flex-direction: column; /* Arrange children horizontally */
+  overflow: hidden; /* Prevent content overflow on smaller screens */
+  transition: transform 0.3s ease; /* Animate transform on active */
+}
+
+.container h4 {
+  margin-top: 5px;
+  color: #D9D9D9;
+  text-align: center;
+  font-weight: bolder;
+  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.button-circle {
+  margin: 0 15px;
+  border-radius: 50%;
+  width: 40px; /* Define size for the circle */
+  height: 40px;
+  background-color: #D9D9D9; /* Background color for the button */
+  display: flex;
+  align-items: center; /* Center the content vertically */
+  justify-content: center; /* Center the content horizontally */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Optional shadow for the button */
+  cursor: pointer; /* Add a pointer cursor to indicate it's clickable */
+}
+
+.button-circle img {
+  width: 20px; /* Adjust the icon size */
+  height: 20px;
+}
+
+.manage-button {
+  text-align: left;
+  padding: 10px 30px;
+  color: black;
+  background-color: #D9D9D9;
+  border-radius: 10px;
+  z-index: 15;
+  position: fixed;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  font-size: 30px;
+  font-weight: bolder;
+  width: 300px;
+  border: 1px solid #5946C9;
+  right: 150px;
+  top: 30px;
+  visibility: hidden;
+  transform: translateX(9rem);
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1000; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+
+  overflow: auto; /* Enable scrolling if needed */
+  transition: opacity 0.3s ease-in-out; /* Optional smooth transition */
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 20px;
+
+  border-radius: 10px;
+  opacity: 0; /* Start transparent */
+  transform: translateY(-50px); /* Start with a slight upward offset */
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; /* Smooth opening */
+  margin-top: 180px;
+}
+
+.modal-content.show {
+  opacity: 1;
+  transform: translateY(0); /* Bring content to normal position */
+}
+
+/* Skills Learning Path CSS */
+.diamond {
+  position: relative;
+  width: 100px; /* Initial Width of the diamond */
+  height: 100px; /* Initial Height of the diamond */
+  border-radius: 30%; /* Adjust for rounded corners */
+  display: flex; /* Center the text */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  transform: rotate(45deg); /* Rotate the diamond shape */
+  transition: width 0.3s, height 0.3s, background-color 0.3s; /* Smooth transitions */
+  cursor: pointer; /* Change cursor to pointer */
+}
+
+.diamond-text {
+  position: absolute; /* Position text on top of the diamond */
+  color: white; /* Text color */
+  font-weight: bold; /* Bold text */
+  font-size: 40px; /* Initial text size */
+  transform: rotate(-45deg); /* Rotate text back to upright */
+  transition: font-size 0.3s; /* Smooth transition for text size */
+}
+
+.diamond-container {
+  position: relative;
+  text-align: center;
+  padding: 20px;
+  padding-bottom: 0;
+  border-radius: 0 0 25px 25px;
+}
+
+.diamond-bottom-line {
+  display: inline-block; /* Ensure the border only applies to the line */
+  width: 80px; /* Adjust the width of the bottom line */
+  padding-bottom: 25px;
+  margin: 0 auto; /* Center the line horizontally */
+}
+
+.learning-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: auto;
+  margin: 250px 30px 0 50px;
+  border: 1px solid;
+}
+
+.column-container { 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.outside-diamond-container {
+  top: 0;
+  display: flex;
+  flex-direction: column; /* Stack the diamond and text vertically */
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  height: 100%; /* Make the container take the full height (or adjust as needed) */
+  text-align: center; /* Center the h3 text */
+  margin: 50px 20px ;
+}
+
+.outside-diamond-container h3 {
+  padding: 10px;
+  text-align: center;
+  font-size: 15px;
+}
+
+.content-container {
+  display: none;
+  flex-direction: column; /* Stack items vertically */
+  overflow-y: auto; /* Enable vertical scrolling */
+  max-height: 550px; /* Set a maximum height */
+  max-width: 500px;
+  padding: 10px; /* Optional padding */
+  color: white;
+  margin-left: 30px;
+  position: relative;
+  gap: 20px; /* Space between items */
+}
+
+.content-inside-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid white;
+  padding: 20px; /* Added padding for inner space */
+  min-width: 350px;
+  max-width: 100%; /* Allow it to adapt to available space */
+  box-sizing: border-box;
+}
+
+.title-container h2 {
+  position: relative;
+  z-index: 10;
+  top: -20px;
+  color: #394157;
+  font-size: 12px;
+  font-weight: bolder;
+  text-align: center;
+  margin-bottom: -20px;
+}
+.content-column-container img {
+  width: 160px;
+}
+
+.title-container img {
+  width: 120px;
+}
+
+.content-column-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; /* Spacing between items */
+}
+
+
+.content-column-container h1 {
+  font-size: 16px;
+}
+.content-column-container h3 {
+  font-size: 13px;
+}
+.content-column-container p {
+  font-size: 10px;
+}
+
+.outer-courses-container {
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap; /* Allows the children to wrap onto the next line */
+  justify-content: center; /* Center the items */
+  padding: 20px; /* Add padding around the container */
+  position: relative;
+}
+
+.courses-container {
+  margin: 0px; /* Add margin between each course container */
+  width: 300px; /* Set a fixed width for each container */
+  flex-direction: column; /* Arrange items in a column */
+  align-items: center; /* Center items horizontally */
+  text-align: center; /* Center text */
+  padding: 10px; /* Add padding inside the container */
+}
+
+.courses-container img {
+  width: 100%; /* Make the image responsive */
+  max-width: 230px; /* Set a max width for images */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.courses-container h1 {
+  font-size: 15px;
+  color: white;
+  margin-top: 10px; /* Space above the title */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .courses-container {
+      width: 100%; /* Full width on smaller screens */
+  }
+}
+
+.pdf-container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 10px;
+}
+.pdf-viewer {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+.pdf-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.delete-btn, .select-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.select-all {
+  margin-bottom: 20px;
+}

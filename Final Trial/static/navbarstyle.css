@@ -1,0 +1,285 @@
+
+/* navbar implement----------------------------------------------------->*/
+
+.navbar {
+    transform: translateX(-100%); /* Navbar is hidden off-screen by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 12rem; /* Width of the vertical navbar */
+    height: 100%;
+    background-color: #B1418E;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transition: transform 0.3s ease; /* Smooth transition for showing/hiding */
+    z-index: 1500;  /* Ensure the navbar stays on top */
+    overflow: hidden;
+  }
+
+  /* Main content styles */
+.main-content {
+  flex-grow: 1; /* Allow the content area to take remaining space */
+  transition: transform 0.2s ease-in-out, margin-right 0.2s ease-in-out;
+  min-height: 100vh; /* Ensure it covers full height */
+  transform: translateX(2rem); /* Shift main content to the right */
+  margin: 0rem;
+
+}
+
+.main-content.active {
+    transition: transform 0.2s ease-in-out, margin-right 0.2s ease-in-out;
+    transform: translateX(10rem); /* Main content shifted */
+    margin-right: 10vw;
+    margin-left: 1vw;
+  }
+  
+
+/* Container for decorative elements */
+.decorative-container {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-around;
+width: 100%;
+padding: 1rem 0;
+}
+
+/* Decorative circle shape */
+.strap1 {
+transition: transform 0.3s ease; /* Smooth hover effect */
+position: absolute;
+top: 0;
+left: 50%; /* Center the rectangle horizontally */
+transform: translateX(-50%); /* Center the rectangle horizontally */
+width: 85px; /* Width for the rectangle */
+height: 25%; /* Full height of the navbar */
+background-color: #4A36C4; /* Color of the rectangle */
+border-bottom-left-radius: 100px;
+border-bottom-right-radius: 100px;
+
+}
+
+/* Position the image at the bottom of .strap1 */
+.strap1 img {
+    position: absolute;
+    bottom: 0; /* Align image to the bottom */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center the image */
+    width: 75px; /* Adjust width if necessary */
+    height: auto; /* Keep the aspect ratio */
+    margin-bottom: 1vh;
+    transition: transform 0.3s ease;
+  transform-origin: center; /* Set the transform origin to the center */
+  }
+  .strap1 img[alt="Logo text"] {
+  pointer-events: none; /* Disable pointer events for this specific image */
+  }
+
+  .strap1 img:hover {
+  transform: scale(1.1) translateX(-45%); /* Scale up on hover for effect */
+}
+
+.strap2 {
+  position: absolute;
+    bottom: 0;
+    left: 50%; /* Center the rectangle horizontally */
+    transform: translateX(-50%); /* Center the rectangle horizontally */
+    width: 85px; /* 10px width for the rectangle */
+    height: 70%; /* Full height of the navbar */
+    background-color: #4A36C4; /* Color of the rectangle */
+    z-index: -1; /* Place it behind the clickable elements */
+    border-top-left-radius: 100px;
+    border-top-right-radius: 100px;
+    display: flex;
+   flex-direction: column; /* Stack items vertically */
+
+}
+
+/* Style for nav-item */
+.nav-item {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease;
+    transform-origin: center; /* Set the transform origin to the center */
+    user-select: none; /* Disable text selection */
+    outline: none; /* Remove focus outline */
+    
+    }
+    
+    .nav-item i.fa-circle {
+      font-size: 0.5rem; /* Adjust the size of the circles */
+      color: white; /* Color of the circles */
+      display: block; /* Make the icon a block element */
+      margin: 1.5rem; /* Center the icon within the nav-item */
+      pointer-events: none;
+    
+    
+    }
+    
+    .nav-item i {
+    transition: transform 0.3s ease;
+    transform-origin: center; /* Set the transform origin to the center */
+    
+    
+    }
+    
+    .nav-item p {
+      transition: transform 0.3s ease;
+      transform-origin: center; /* Set the transform origin to the center */
+    
+    }
+    
+    .nav-item p img {
+      width: 45px; /* Adjust as needed */
+      height: auto; /* Maintain aspect ratio */
+    }
+    
+    .nav-item span {
+    font-size: 0.8rem; /* Text under the icon */
+    }
+    
+    
+    .iconZoom:hover {
+     
+      transform: scale(1.1) translateX(-0%); /* Scale up on hover for effect */
+    
+    }
+    
+    .iconZoom2:hover {
+     
+     transform: scale(1.5) translateX(-0%); /* Scale up on hover for effect */
+    
+    }
+    
+    .logo-container.active {
+    left: 4.2rem; /* Center the container horizontally */
+    }
+    
+    .logo-container {
+        position: fixed;
+        top: 1rem; /* Adjust top position as needed */
+        left: 1rem; /* Center the container horizontally */
+        z-index: 2000;
+        display: flex;
+        flex-direction: column; /* Stack items vertically */
+        align-items: center; /* Ensure items are centered within the container */
+        
+    }
+        
+    
+    .logo {
+    width: 40px; /* Logo size */
+    cursor: pointer;
+    margin-bottom: 0.3rem; /* Add spacing between the two logos */
+    }
+    
+    
+    
+    .logo-text {
+    width: 60px; /* Adjust width for FutureForge logo */
+    height: auto; /* Maintain aspect ratio */
+    }
+    
+    
+    .username{
+    position: absolute; /* Position it absolutely */
+    top: 27%; /* Move it to the middle */
+    left: 50%; /* Center it horizontally */
+    transform: translate(-50%, -50%); /* Adjust for its own dimensions */
+    color: white; /* Set the text color */
+    font-size: 1rem; /* Adjust font size */
+    text-align: center; /* Center text */
+    z-index: 1; /* Ensure it stays above other elements */
+    white-space: nowrap;
+    }
+    
+    
+    .spinning {
+    animation: spin 0.5s linear infinite;
+    }
+    
+    /* Spinning animation */
+    @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+    }
+    
+    /* Media query for small screens */
+    @media (max-width: 600px) or (max-height: 600px){
+    
+    .strap1 img {
+    width: 80%;
+    height: auto;
+    }
+    
+    .strap2 .nav-item p img {
+    
+      width: 60%;
+      height: auto;
+    }
+    
+    .nav-item i.fa-circle {
+    
+      margin: 1rem 0; /* Center the icon within the nav-item */
+    
+    }
+    }
+    
+    #indicator {
+      position: absolute;
+      top: 0; /* Initial position at the top */
+      right: 0; /* Stick to the right of the navbar */
+      width: 18px; /* No width for the triangle */
+      height: 0; /* No height for the triangle */
+      border-right: 30px solid  #4A36C4; /* Right side of the triangle */
+    
+      border-top: 12px solid transparent; /* Top slant of the triangle */
+      border-bottom: 10px solid transparent; /* Bottom slant of the triangle */
+      transition: top 0.5s ease; /* Smooth transition for vertical movement */
+      pointer-events: none; /* Make it non-clickable */
+      border-top: 40px solid transparent; /* Top slant of the triangle (increase for wider base) */
+      border-bottom: 40px solid transparent; /* Bottom slant of the triangle (increase for wider base) */
+    }
+    
+    
+    
+    
+    .logout-container {
+      position: absolute; /* Keep it fixed at the bottom */
+      bottom: 1rem; /* Adjust distance from bottom */
+      width: 100%; /* Make it take the full width */
+      display: flex; /* Allow flex properties */
+      justify-content: center; /* Center the logout item */
+    }
+    
+    * {
+      box-sizing: border-box; /* Ensures padding doesn't affect the total width */
+    }
+    
+    body {
+      margin: 0; /* Remove default body margin */
+    }
+    
+    /* Container to hold navbar and main content */
+    .container {
+      display: flex; /* Use flexbox to align items */
+      flex-direction: column; /* Arrange children horizontally */
+      overflow: hidden; /* Prevent content overflow on smaller screens */
+      transition: transform 0.3s ease; /* Animate transform on active */
+    }
+    
+    .navbar.active {
+        transform: translateX(0); /* Show the navbar when active */
+        
+      }
+    

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flip Card Questionnaire</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f7f7f7;
+      flex-direction: column;
+    }
+    .flip-card-container {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      perspective: 1000px;
+    }
+    .flip-card {
+      background-color: transparent;
+      width: 100%;
+      height: 100%;
+      perspective: 1000px;
+    }
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .flip-card-front {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .flip-card-back {
+      background-color: #2196F3;
+      color: white;
+      transform: rotateY(180deg);
+    }
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    .navigation {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      width: 300px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .status {
+      margin-top: 10px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="flip-card-container">
+    <div id="flip-card" class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front" id="question">
+          Question 1: What is the capital of France?
+        </div>
+        <div class="flip-card-back" id="answer">
+          Paris
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="navigation">
+    <button onclick="prevQuestion()">&#8592; Prev</button>
+    <button onclick="nextQuestion()">Next &#8594;</button>
+  </div>
+
+  <div class="status">
+    <span id="status">1/5</span>
+  </div>
+
+  <script>
+    const questions = [
+      { question: "What is the capital of France?", answer: "Paris" },
+      { question: "What is the largest planet in our solar system?", answer: "Jupiter" },
+      { question: "Who wrote 'Romeo and Juliet'?", answer: "William Shakespeare" },
+      { question: "What is the chemical symbol for gold?", answer: "Au" },
+      { question: "How many continents are there?", answer: "Seven" }
+    ];
+
+    let currentQuestion = 0;
+
+    function updateQuestion() {
+      document.getElementById("question").innerHTML = "Question " + (currentQuestion + 1) + ": " + questions[currentQuestion].question;
+      document.getElementById("answer").innerHTML = questions[currentQuestion].answer;
+      document.getElementById("status").innerHTML = (currentQuestion + 1) + "/" + questions.length;
+    }
+
+    function nextQuestion() {
+      if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        updateQuestion();
+      }
+    }
+
+    function prevQuestion() {
+      if (currentQuestion > 0) {
+        currentQuestion--;
+        updateQuestion();
+      }
+    }
+
+    updateQuestion();
+  </script>
+
+</body>
+</html>

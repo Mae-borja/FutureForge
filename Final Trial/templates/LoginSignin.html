@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/loginstyle.css">
+</head>
+<body>
+
+    <button onclick="showModal('signin')" style="width:auto;">Sign Up</button>
+
+    <div id="login" class="modal">
+        <form class="modal-content animate" action="/login" method="POST">
+            <div class="imgcontainer">
+                <img src="/static/Images/logo purple.png" alt="logo1" style="height: 50px;"><br>
+                <img src="/static/Images/FutureForge.png" alt="logo2" style="width: 250px;">
+                <h3 style="color: #785DB0;">Login to your account</h3>
+            </div>
+            <div class="container">
+                <input type="text" placeholder="Enter Email" name="email" required><br><br>
+                <input type="password" placeholder="Enter Password" name="password" required>
+                <div style="text-align: center;">
+                    <span class="psw" onclick="showModal('enterEmail')"><a href="#">Forgot password?</a></span>
+                </div>
+                <button type="submit">Sign in</button>
+                <button type="button" style="background-color: white; color: black;">Login with Google</button>
+                <br>
+                <div style="text-align: center; margin-bottom: 50px;">
+                    <span class="psw" onclick="showModal('signin')"><a href="#">Don’t have an account yet? Sign Up!</a></span>
+                </div>
+            </div>
+        </form>
+    </div>
+
+       <div id="signin" class="modal">
+        <form class="modal-content animate" action="/signup" method="POST">
+            <div class="imgcontainer">
+                <img src="/static/Images/logo pink.png" alt="logo1" style="height: 50px;"><br>
+                <img src="/static/Images/FutureForge.png" alt="logo2" style="width: 250px;">
+                <h3 style="color: #B1418E;">Create an account</h3>
+            </div>
+            <div class="container">
+                <label for="email">
+                    <input type="text" placeholder="Enter Email" id="email" name="email" required>
+                </label><br><br>
+                <label for="password">
+                    <input type="password" placeholder="Enter Password" id="password" name="password" required>
+                </label>
+                <div style="text-align: center;">
+                    <span class="psw" onclick="showModal('login')"><a href="#">Already have an account? Login.</a></span>
+                </div>
+                <button type="submit" style="background-color: #B1418E;">Register</button>
+                <button type="button" style="background-color: white; color: black;">Sign up with Google</button>
+                <br>
+                <span class="psw" style="color: grey; margin-bottom: 50px; margin-top: 30px;">
+                    By creating an account, you agree to our <a style="color: #B1418E;">Terms of Service</a> and <a style="color: #B1418E;">Privacy Policy</a>
+                </span>
+            </div>
+        </form>
+    </div>
+        </form>
+    </div>
+
+    <div id="enterEmail" class="modal" >
+        <form class="modal-content animate" action="/send-verification-email" method="POST">
+            <div class="imgcontainer">
+                <div class="back">
+                    <img src="/static/Images/Vector.png" onclick="showModal('login')">
+                </div>
+                <img src="/static/Images/Omnichannel.png" alt="logo1" style="height: 50px;" ><br>
+                <img src="/static/Images/FutureForge.png" alt="logo2" style="width: 250px;">
+                <h3 style="color: #785DB0;">Forgot Password</h3>
+                <div style="text-align: center; margin: 30px;">
+                    <span class="desc">Enter your email to receive a <br>verification number</a></span>
+                </div>
+            </div>
+            <div class="container">
+                <input type="text" placeholder="Enter Email" name="email" required><br><br>
+                <button type="submit" style="background-color: #785DB0; margin-bottom: 50px; margin-top: 20px;">Send Confirmation</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="enterNumber" class="modal" >
+        <form class="modal-content animate" action="/enter_number" method="POST">
+            <div class="imgcontainer">
+                <div class="back">
+                    <img src="/static/Images/Vector.png" onclick="showModal('enterEmail')">
+                </div>
+                <img src="/static/Images/Omnichannel.png" alt="logo1" style="height: 50px;" ><br>
+                <img src="/static/Images/FutureForge.png" alt="logo2" style="width: 250px;">
+                <h3 style="color: #785DB0;">Forgot Password</h3>
+                <div style="text-align: center; margin: 30px;">
+                    <span class="desc">Enter the number to proceed to <br>password change.</a></span>
+                </div>
+            </div>
+            <div class="container" style="text-align: center;">
+                <input class="inputNum" required><br><br>
+                <button type="submit" style="background-color: #785DB0; margin-bottom: 50px; margin-top: 20px;">Send Confirmation</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="enterNewPass" class="modal" >
+        <form class="modal-content animate" action="/change_password" method="POST">
+            <div class="imgcontainer">
+                <div class="back">
+                    <img src="/static/Images/Vector.png" onclick="showModal('enterNumber')">
+                </div>
+                <img src="/static/Images/Omnichannel.png" alt="logo1" style="height: 50px;" ><br>
+                <img src="/static/Images/FutureForge.png" alt="logo2" style="width: 250px;">
+                <h3 style="color: #785DB0;">Change Password</h3>
+                <div style="text-align: center; margin: 30px;">
+                    <span class="desc">Enter your new password</a></span>
+                </div>
+            </div>
+            <div class="container">
+                <input type="password" placeholder="Enter new password" name="newPass" required><br><br>
+                <input type="password" placeholder="Confirm password" name="confirmPass" required><br><br>
+                <button type="submit" style="background-color: #785DB0; margin-bottom: 50px; margin-top: 20px;">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="/static/loginsignin.js"></script>
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/Skillsstyle.css">
+    <link rel="stylesheet" href="/static/navbar.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.min.js"></script>
+</head>
+<body>
+    
+<div class="container">
+    
+    <div class="skills" style="z-index: 1000;">
+        <div class="skills-header">
+            <div class="skills-header-container">
+                <h1>Skills</h1>
+                <div class="insights">
+                    <p>Insights</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="another-container">
+        <div class="analyze-container">
+            <img src="/static/Images/Analyze.png" alt="analyze">
+            <h2>Gap Report</h2>
+        </div>
+        <div class="insight-container">
+            <img src="/static/Images/Light On.png">
+            <h2>Insights!</h2>
+        </div>
+        <button class="manage-button" onclick="toggleModal()" id="manageButton">Manage Skills</button>
+    </div>
+    
+        
+    <!-- Main Content Section -->
+    <div class="main-content active">
+        <div class="container" id="mainContent">
+            <div class="overview-container" id="Description">
+                <div class="description-container">
+                    <h3>General Overview</h3>
+                    <p>{{ overview_text }}</p>
+                </div>
+                <div class="description-container">
+                    <div class="center-container">
+                        <img src="/static/Images/pie.png" style="width: 100%; max-width: 500px;">
+                    </div>
+                    <p>Lorem ipsum aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+            </div>
+        
+            <div class="center-container">
+                <div class="triangle-button" onclick="showAndScrollToSkills()"></div>
+            </div>
+
+            <!-- Skills Section (Initially Hidden) -->
+            <div class="skills-header-container" id="skillcontainer" style="margin-top: 50px;">
+                <div class="skills-container" style="background-color: #B1418E; margin-left: 50px;">
+                    <div class="skill-button" style="left: 30px;">Current Skills</div>  
+                    <div class="outer-courses-container">
+
+                        <!-- New Section for Displaying PDFs Again -->
+                        <div class="new-pdf-section">
+                            <div id="new-pdf-container">
+                                <!-- PDFs will be added here -->
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="skills-container" style="background-color: #E59458; margin-right: 50px;">
+                    <div class="skill-button" style="right: 30px;">Required Skills</div>  
+
+                    <div class="outer-courses-container">
+                        <div class="courses-container">
+                            <img src="/static/Images/image 8.png"> <!-- Example image -->
+                            <h1>Title 1</h1>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Structure -->
+        <div id="skillsModal" class="modal">
+            <div class="modal-content">
+                <!-- Your manage-container content -->
+                <div class="manage-container">
+                    <div class="manage-skills-container">
+                        <div class="skill-button" style="left: -60px;">Current Skills</div>
+                        <div class="button-container">
+                            <div class="container">
+                                <div class="button-circle" id="select-all" onclick="toggleSelectAll()"><img src="/static/Images/+.png" alt="Select all"></div>
+                                <h4>Select all</h4>
+                            </div>
+                            <div class="container">
+                                <div class="button-circle" id="add"><img src="/static/Images/+.png"></div>
+                                <h4>Add</h4>
+                            </div>
+                            <div class="container">
+                                <div class="button-circle" id="edit"><img src="/static/Images/Edit.png"></div>
+                                <h4>Edit</h4>
+                            </div>
+                            <div class="container">
+                                <div class="button-circle" id="delete" onclick="deleteSelected()"><img src="/static/Images/Delete.png"></div>
+                                <h4>Delete</h4>
+                            </div>
+                        </div>
+                        <div class="outer-courses-container">
+                            {% if pdf_urls %}
+                            {% for pdf_url in pdf_urls %}
+                            <div class="courses-container">
+                                <div class="pdf-container" id="pdf-container-{{ loop.index }}">
+                                    <canvas class="pdf-viewer" id="pdf-{{ loop.index }}"></canvas>
+                                    <h1>{{ filenames[loop.index0] }}</h1>
+                                    <input type="checkbox" class="pdf-select" data-pdf-url="{{ pdf_url }}" id="checkbox-{{ loop.index }}">
+                                </div>
+                            </div>   
+                            {% endfor %}
+                        {% else %}
+                            <p>No uploaded PDFs found.</p>
+                        {% endif %}
+                        
+                            <div class="courses-container">
+                                <img src="/static/Images/image 8.png"> <!-- Example image -->
+                                <h1>Title 1</h1>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="manage-skills-container">
+                        <div class="skill-button" style="left: -60px;">Required Skills</div>
+                        <div class="outer-courses-container">
+                            
+<!-- Modal Structure<div class="courses-container">
+                                  <div class="courses-container">
+                                <img src="/static/Images/image 8.png"> 
+                                <h1>Title 1</h1>
+                            </div> -->
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="{{ url_for('skillsgap_bp.skills_learningpath') }}">skills_learningpath</a>
+</div>
+<script src="/static/SkillsGapReport.js"></script>
+    <script>
+        {% for pdf_url in pdf_urls %}
+            (function() {
+                const url = "{{ pdf_url }}";
+                const canvas = document.getElementById('pdf-{{ loop.index }}');
+                const context = canvas.getContext('2d');
+                const loadingTask = pdfjsLib.getDocument(url);
+
+                loadingTask.promise.then(pdf => {
+                    // Fetch the first page
+                    pdf.getPage(1).then(page => {
+                        const viewport = page.getViewport({ scale: 1.5 });
+                        canvas.width = viewport.width;
+                        canvas.height = viewport.height;
+                        page.render({ canvasContext: context, viewport: viewport });
+                    });
+                }).catch(error => {
+                    console.error('Error loading PDF: ', error);
+                });
+                
+            })();
+        {% endfor %}
+
+// Function to display the PDF in a new section dynamically
+function displayPdfInNewSection(pdfUrl, filename, index) {
+    const newPdfContainer = document.getElementById('new-pdf-container');
+    const newPdfDiv = document.createElement('div');
+    newPdfDiv.classList.add('courses-container');
+    
+    const newCanvas = document.createElement('canvas');
+    newCanvas.classList.add('pdf-viewer');
+    newPdfDiv.appendChild(newCanvas);
+    
+    const loadingTask = pdfjsLib.getDocument(pdfUrl);
+    loadingTask.promise.then(pdf => {
+        pdf.getPage(1).then(page => {
+            const viewport = page.getViewport({ scale: 1.5 });
+            newCanvas.width = viewport.width;
+            newCanvas.height = viewport.height;
+            page.render({ canvasContext: newCanvas.getContext('2d'), viewport: viewport });
+        });
+    }).catch(error => {
+        console.error('Error loading PDF: ', error);
+    });
+    
+    const newTitle = document.createElement('h1');
+    newTitle.innerText = filename;  // Use the filename as the title
+    newPdfDiv.appendChild(newTitle);
+    
+    newPdfContainer.appendChild(newPdfDiv);
+}
+
+
+    // Call this function when you need to display a PDF again
+    {% for pdf_url in pdf_urls %}
+    
+        displayPdfInNewSection("{{ pdf_url }}", "{{ filenames[loop.index0] }}", {{ loop.index }});
+  
+    {% endfor %}
+
+
+
+      function toggleSelectAll() {
+            // Get the "select all" button (acting like a checkbox)
+            const selectAllButton = document.getElementById('select-all');
+            // Get all checkboxes that should be selected/deselected
+            const checkboxes = document.querySelectorAll('.pdf-select');
+            const isSelected = selectAllButton.classList.contains('selected');
+            
+            // Toggle the "selected" class on the button
+            selectAllButton.classList.toggle('selected');
+            
+            // Set the state of each checkbox based on the "select all" button
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = !isSelected;
+            });
+        }
+
+        function deleteSelected() {
+            const selectedCheckboxes = document.querySelectorAll('.pdf-select:checked');
+            const selectedFiles = [];
+            selectedCheckboxes.forEach(checkbox => {
+                selectedFiles.push(checkbox.getAttribute('data-pdf-url'));
+            });
+
+            if (selectedFiles.length === 0) {
+                alert("No PDFs selected for deletion.");
+                return;
+            }
+
+            const confirmation = confirm("Are you sure you want to delete the selected PDFs?");
+            if (confirmation) {
+                fetch('/delete_multiple_pdfs', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ pdf_urls: selectedFiles }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        selectedFiles.forEach(url => {
+                            const index = pdf_urls.indexOf(url);
+                            if (index !== -1) {
+                                document.getElementById(`pdf-container-${index + 1}`).remove();
+                            }
+                        });
+                    } else {
+                        alert("Error deleting PDFs.");
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>

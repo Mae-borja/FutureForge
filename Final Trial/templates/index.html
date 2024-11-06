@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Uploaded PDFs</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.min.js"></script>
+    <style>
+        .pdf-container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 10px;
+        }
+        .pdf-viewer {
+            width: 50%;
+            height: 50%;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        .pdf-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .delete-btn, .select-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .select-all {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Uploaded PDFs</h1>
+    <div class="select-all">
+        <input type="checkbox" id="select-all" onclick="toggleSelectAll()"> Select All
+        <button class="delete-btn" onclick="deleteSelected()">Delete Selected</button>
+    </div>
+
+    {% if pdf_urls %}
+        {% for pdf_url in pdf_urls %}
+            <div class="pdf-container" id="pdf-container-{{ loop.index }}">
+                <div class="pdf-title">PDF: {{ pdf_url.split('/')[-1] }}</div>
+                <canvas class="pdf-viewer" id="pdf-{{ loop.index }}"></canvas>
+                <input type="checkbox" class="pdf-select" data-pdf-url="{{ pdf_url }}" id="checkbox-{{ loop.index }}">
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No uploaded PDFs found.</p>
+    {% endif %}
+
+    <script>
+        {% for pdf_url in pdf_urls %}
+            (function() {
+                const url = "{{ pdf_url }}";
+                const canvas = document.getElementById('pdf-{{ loop.index }}');
+                const context = canvas.getContext('2d');
+                const loadingTask = pdfjsLib.getDocument(url);
+
+                loadingTask.promise.then(pdf => {
+                    // Fetch the first page
+                    pdf.getPage(1).then(page => {
+                        const viewport = page.getViewport({ scale: 1.5 });
+                        canvas.width = viewport.width;
+                        canvas.height = viewport.height;
+                        page.render({ canvasContext: context, viewport: viewport });
+                    });
+                }).catch(error => {
+                    console.error('Error loading PDF: ', error);
+                });
+            })();
+        {% endfor %}
+
+        function toggleSelectAll() {
+            const selectAllCheckbox = document.getElementById('select-all');
+            const checkboxes = document.querySelectorAll('.pdf-select');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked;
+            });
+        }
+
+        function deleteSelected() {
+            const selectedCheckboxes = document.querySelectorAll('.pdf-select:checked');
+            const selectedFiles = [];
+            selectedCheckboxes.forEach(checkbox => {
+                selectedFiles.push(checkbox.getAttribute('data-pdf-url'));
+            });
+
+            if (selectedFiles.length === 0) {
+                alert("No PDFs selected for deletion.");
+                return;
+            }
+
+            const confirmation = confirm("Are you sure you want to delete the selected PDFs?");
+            if (confirmation) {
+                fetch('/delete_multiple_pdfs', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ pdf_urls: selectedFiles }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        selectedFiles.forEach(url => {
+                            const index = pdf_urls.indexOf(url);
+                            if (index !== -1) {
+                                document.getElementById(`pdf-container-${index + 1}`).remove();
+                            }
+                        });
+                    } else {
+                        alert("Error deleting PDFs.");
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
